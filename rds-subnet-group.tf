@@ -1,5 +1,5 @@
 resource "aws_db_subnet_group" "db_subnet_group_v1" {
-  name       = "db-subnet-group"
+  name = "db-subnet-group-v1"
   description = "DB subnet group for RDS"
   subnet_ids = [
     aws_subnet.private_a.id,
