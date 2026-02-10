@@ -19,10 +19,3 @@ resource "aws_launch_template" "wordpress" {
     }
   }
 }
-tag_specifications {
-  resource_type = "instance"
-  tags = {
-    Name    = "wordpress-asg"
-    Version = "v2"
-  }
-}
