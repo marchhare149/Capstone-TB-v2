@@ -7,6 +7,6 @@ resource "aws_db_subnet_group" "db_subnet_group_v1" {
   ]
 
   tags = {
-    Name = "db-subnet-group"
+    name = "db-subnet-group-v1"
   }
 }
