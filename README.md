@@ -1,56 +1,75 @@
-# AWS Capstone Project – Scalable WordPress on AWS
+# AWS Capstone Project – Van Gogh Gallery on AWS
 
-## Overview
+## Project Overview
 
-This project implements a **highly available and scalable WordPress infrastructure on AWS**, fully provisioned using **Terraform (Infrastructure as Code)** and deployed via **Terraform Cloud**.
+This project implements a scalable and highly available WordPress infrastructure on AWS, provisioned using Terraform (Infrastructure as Code) and deployed via Terraform Cloud.
 
-The architecture follows **AWS Well-Architected Framework** principles, focusing on **security, high availability, scalability, and clean network separation**.
+The application is a themed WordPress website called **"Van Gogh Gallery"**, presenting art articles and a curated gallery of Vincent van Gogh’s paintings.
+
+The focus of this project is infrastructure architecture, security design, and high availability rather than website content.
+
+---
+
+## Architecture Diagram
+
+![Architecture Diagram](diagram/architecture.png)
 
 ---
 
 ## Architecture Summary
 
-- Multi-AZ deployment (us-west-2a, us-west-2b)
-- Public / Private subnet separation
-- WordPress runs only in private subnets
-- Application Load Balancer for traffic distribution
-- Auto Scaling Group for high availability
-- Amazon RDS MySQL in private subnets
-- NAT Gateway for outbound internet access
-- Bastion Host for secure administration
+- Multi-AZ deployment (us-west-2a & us-west-2b)
+- Public and Private subnet separation
+- WordPress instances deployed in private subnets only
+- Application Load Balancer (ALB)
+- Auto Scaling Group (2–3 instances)
+- Amazon RDS MySQL (private access)
+- NAT Gateway for outbound traffic
+- Bastion Host for secure SSH access
+- Terraform Cloud for remote state management
 
 ---
 
-## AWS Services Used
+## Network Design
 
-- Amazon VPC
-- EC2 (Launch Template + Auto Scaling Group)
-- Application Load Balancer
-- Amazon RDS (MySQL)
-- NAT Gateway
-- Bastion Host
-- Security Groups (least privilege)
-- Terraform Cloud (remote state & deployments)
+VPC CIDR: `10.0.0.0/16`
+
+Public Subnets:
+- 10.0.1.0/24 (AZ-a)
+- 10.0.3.0/24 (AZ-b)
+
+Private Subnets:
+- 10.0.2.0/24 (AZ-a)
+- 10.0.4.0/24 (AZ-b)
+
+### Traffic Flow
+
+Internet
+↓
+Application Load Balancer (Public Subnets)
+↓
+Auto Scaling Group (Private Subnets)
+↓
+Amazon RDS MySQL (Private Subnets)
 
 ---
 
-## Key Implementation Details
+## Compute & Scaling
 
-### Network
-- VPC CIDR: `10.0.0.0/16`
-- Public Subnets: `10.0.1.0/24`, `10.0.3.0/24`
-- Private Subnets: `10.0.2.0/24`, `10.0.4.0/24`
-
-### Compute & Scaling
-- WordPress EC2 instances deployed via Launch Template
+- Launch Template for automated WordPress installation
 - Auto Scaling Group:
-  - Min: 2 | Desired: 2 | Max: 3
-- Instances distributed across multiple AZs
-- No public IPs on application instances
+  - Min: 2
+  - Desired: 2
+  - Max: 3
+- CPU-based target tracking policy
+- No public IP assigned to application instances
 
-### Database
+---
+
+## Database
+
 - Amazon RDS MySQL 8.x
-- Instance type: `db.t3.micro`
+- Instance type: db.t3.micro
 - Private access only
 - DB Subnet Group across two AZs
 
@@ -58,45 +77,34 @@ The architecture follows **AWS Well-Architected Framework** principles, focusing
 
 ## Security Design
 
-- No direct internet access to WordPress EC2 instances
-- Database not publicly accessible
+- WordPress EC2 instances not publicly accessible
+- Database accessible only from WordPress Security Group
 - SSH access restricted to Bastion Host
-- Security Groups scoped by source SG instead of wide CIDR
-- NAT Gateway for controlled outbound traffic
+- Bastion SSH restricted to personal IP
+- Security Groups follow least-privilege principle
+- NAT Gateway used for controlled outbound internet access
 
 ---
 
 ## Deployment Workflow
 
-- Terraform code stored in GitHub
-- Infrastructure deployed using Terraform Cloud
-- No local Terraform state
-- Workflow:
-
-
+1. Terraform code stored in GitHub
+2. Connected to Terraform Cloud
+3. Remote state managed securely
+4. Infrastructure deployed via Terraform Cloud runs
 
 ---
 
 ## Result
 
-- WordPress successfully accessible via ALB DNS
-- High availability across multiple AZs
-- Fully automated, repeatable infrastructure
-
----
-
-## What I Learned
-
-- Designing secure AWS network architectures
-- Implementing high availability with ALB & Auto Scaling
-- Managing Terraform Cloud workflows
-- Debugging real AWS dependency issues
-- Applying Infrastructure as Code best practices
+- Van Gogh Gallery accessible via ALB DNS
+- High availability across two Availability Zones
+- Fully automated and repeatable infrastructure
 
 ---
 
 ## Author
 
-**Marchhare Goofy**  
-Aspiring **Junior Cloud / CloudOps Engineer**  
+Thao Bui  
+Bootcamp Capstone Project  
 AWS | Terraform | Linux
