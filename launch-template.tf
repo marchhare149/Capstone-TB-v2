@@ -1,5 +1,5 @@
 locals {
-  wordpress_user_data = templatefile("${path.module}/userdata-efs.tpl.sh", {
+  wordpress_user_data = templatefile("${path.module}/userdata-efs.sh", {
     efs_id     = aws_efs_file_system.wp.id
     aws_region = var.aws_region
     wp_root    = var.wp_root
