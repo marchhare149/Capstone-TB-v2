@@ -18,9 +18,10 @@ variable "media_bucket_name" {
 }
 
 variable "site_domain" {
-  type = string
+  type    = string
   default = ""
 }
+
 variable "ses_mail_from_subdomain" {
   type    = string
   default = "mail"
@@ -31,6 +32,11 @@ variable "alarm_email" {
 }
 
 variable "ses_domain" {
-  type = string
+  type    = string
   default = ""
+}
+
+variable "wp_root" {
+  type    = string
+  default = "/var/www/html"
 }
