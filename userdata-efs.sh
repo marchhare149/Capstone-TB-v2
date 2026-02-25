@@ -4,7 +4,7 @@ set -euo pipefail
 EFS_ID="${efs_id}"
 AWS_REGION="${aws_region}"
 WP_ROOT="${wp_root}"
-WP_CONTENT_DIR="${WP_ROOT}/wp-content"
+WP_CONTENT_DIR="${wp_root}/wp-content"
 EFS_MNT="/mnt/efs"
 
 if command -v yum >/dev/null 2>&1; then
