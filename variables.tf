@@ -20,3 +20,11 @@ variable "media_bucket_name" {
 variable "site_domain" {
   type = string
 }
+variable "ses_mail_from_subdomain" {
+  type    = string
+  default = "mail"
+}
+
+variable "alarm_email" {
+  type = string
+}
