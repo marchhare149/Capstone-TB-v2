@@ -1,18 +1,3 @@
-provider "aws" {
-  alias  = "use1"
-  region = "us-east-1"
-}
-
-resource "aws_acm_certificate" "cf_cert" {
-  provider          = aws.use1
-  domain_name       = var.site_domain
-  validation_method = "DNS"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "aws_cloudfront_distribution" "cdn" {
   enabled             = true
   default_root_object = "index.php"
@@ -65,9 +50,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = aws_acm_certificate.cf_cert.arn
-    ssl_support_method             = "sni-only"
-    minimum_protocol_version       = "TLSv1.2_2021"
+    cloudfront_default_certificate = true
   }
 
   restrictions {
