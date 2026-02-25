@@ -1,0 +1,5 @@
+project_name       = "aws-capstone"
+aws_region         = "us-west-2"
+media_bucket_name  = "aws-capstone-media-bucket-20260225v2"
+site_domain        = "vangogh.yourdomain.com"
+key_name           = "vockey"
