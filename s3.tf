@@ -4,6 +4,7 @@ resource "aws_s3_bucket" "media" {
 
 resource "aws_s3_bucket_versioning" "media" {
   bucket = aws_s3_bucket.media.id
+
   versioning_configuration {
     status = "Enabled"
   }
@@ -15,6 +16,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "media" {
   rule {
     id     = "cleanup-old-noncurrent"
     status = "Enabled"
+
+    filter {}
 
     noncurrent_version_expiration {
       noncurrent_days = 30
@@ -32,7 +35,7 @@ resource "aws_s3_bucket_public_access_block" "media" {
 
 resource "aws_cloudfront_origin_access_control" "s3_oac" {
   name                              = "${var.project_name}-s3-oac"
-  description                       = "OAC for S3 media bucket"
+  description                       = "OAC"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"

@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   default_root_object = "index.php"
 
   origin {
-    domain_name = aws_lb.alb.dns_name
+    domain_name = aws_lb.wordpress.dns_name
     origin_id   = "alb-origin"
 
     custom_origin_config {
