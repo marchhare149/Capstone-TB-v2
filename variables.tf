@@ -28,3 +28,7 @@ variable "ses_mail_from_subdomain" {
 variable "alarm_email" {
   type = string
 }
+
+variable "ses_domain" {
+  type = string
+}
