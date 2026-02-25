@@ -11,8 +11,12 @@ resource "aws_launch_template" "wordpress" {
   image_id      = "ami-0d593311db5abb72b"
   instance_type = "t2.micro"
 
-  key_name  = var.key_name
-  user_data = base64encode(local.wordpress_user_data)
+  key_name = var.key_name
+
+  # force change khi userdata đổi
+  user_data = base64encode("${local.wordpress_user_data}\n# build=${timestamp()}")
+
+  update_default_version = true
 
   iam_instance_profile {
     name = aws_iam_instance_profile.wp_profile.name
@@ -28,5 +32,9 @@ resource "aws_launch_template" "wordpress" {
     tags = {
       Name = "wordpress-asg"
     }
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
