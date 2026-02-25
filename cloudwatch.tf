@@ -1,6 +1,3 @@
-variable "alarm_email" {
-  type = string
-}
 
 resource "aws_sns_topic" "alerts" {
   name = "${var.project_name}-alerts"

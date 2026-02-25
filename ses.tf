@@ -1,11 +1,3 @@
-variable "ses_domain" {
-  type = string
-}
-
-variable "ses_mail_from_subdomain" {
-  type    = string
-  default = "mail"
-}
 
 resource "aws_ses_domain_identity" "domain" {
   domain = var.ses_domain
