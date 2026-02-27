@@ -107,16 +107,4 @@ terraform plan
 terraform apply
 ---
 
-## Result
-
-- Van Gogh Gallery accessible via ALB DNS
-- High availability across two Availability Zones
-- Fully automated and repeatable infrastructure
-
----
-
-## Author
-
-Thao Bui  
-Bootcamp Capstone Project  
-AWS | Terraform | Linux
+## Overview
