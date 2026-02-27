@@ -106,5 +106,3 @@ terraform init
 terraform plan
 terraform apply
 ---
-
-## Overview
